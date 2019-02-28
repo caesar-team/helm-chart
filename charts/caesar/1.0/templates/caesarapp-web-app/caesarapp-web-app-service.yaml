@@ -1,0 +1,14 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.caesarappWebApp.name }}"
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: caesarapp-web-app
+  sessionAffinity: None
+  type: NodePort

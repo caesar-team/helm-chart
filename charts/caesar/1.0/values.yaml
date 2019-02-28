@@ -1,0 +1,158 @@
+
+caesarappWebApp:
+
+  enabled: true
+
+  name: caesarapp-web-app
+
+  image:
+    repository: caesarteam/caesar-web-client
+    tag: master
+    pullPolicy: Always
+  
+  
+  ## Env Varible 
+  ##
+  apiHost: ""
+
+  appHost: ""
+
+  apiBasePath: "api"
+
+  apiProtocol: "https"
+
+  appProtocol: "https"
+
+  appPort: "3000"
+
+  authEndpoint: "connect/google"
+
+  node_env: "production"
+
+  redirect_auth_endpoint: "check_auth"
+
+  priorityClassName: ""
+
+  extraArgs: {}
+
+  ## The URL prefix at which the container can be accessed. Useful in the case the '-web.external-url' includes a slug
+  ## so that the various internal URLs are still able to access as they are in the default case.
+  ## (Optional)
+  prefixURL: ""
+
+  ## External URL which can access caesar
+  ## Maybe same with Ingress host name
+  baseURL: "/"
+
+  ## Additional caesar container environment variable
+  ## For instance to add a http_proxy
+  ##
+  extraEnv: {}
+
+  ingress:
+
+    enabled: true
+
+    ## caesar Ingress annotations
+    ##
+    annotations: {}
+    #   kubernetes.io/ingress.class: nginx
+    #   kubernetes.io/tls-acme: 'true'
+
+    ## caesar Ingress additional labels
+    ##
+    extraLabels: {}
+
+    ## caesar Ingress hostnames with optional path
+    ## Must be provided if Ingress is enabled
+    ##
+    hosts: test.caesar.team
+    #   - caesar.domain.com
+
+    ## caesar Ingress TLS configuration
+    ## Secrets must be manually created in the namespace
+    ##
+    tls: test.caesar.team
+    #   - secretName: caesarapp-server-alerts-tls
+    #     hosts:
+    #       - caesar.domain.com
+
+caesarappServer:
+
+  enabled: true
+
+  ## caesarapp-server server container name
+  ##
+  name: caesarapp-server
+
+  ## caesarapp-server server container image
+  ##
+  image:
+    repository: caesarteam/caesar-server
+    tag: master
+    pullPolicy: Always
+  
+
+  ## Env Varible 
+  ##
+  avalibleRequestSignature: "false"
+
+  dbVersion: "9.6"
+
+  https: "on"
+
+  httpXForwardedProto: https
+
+  jwtTokenTTL: "86400"
+
+  strictAuditTrail: "false"
+
+  allowFrontRedirectPattern: ''
+
+  appSecret: ""
+
+  dataBaseUrl: ""
+
+  googleID: ""
+
+  googleSecret: ""
+
+  jwtPassPhrase: ""
+
+  mailerUrl: ""
+
+  oauthAllowedDomain: "gmail.com"
+
+  senderAddress: ""
+
+  superAdminPass: ""
+  
+  twoFactorServerName: "Caesar"
+
+postgres:
+
+  enabled: true
+
+  ## postgres container name
+  ##
+  name: postgres
+
+  ## postgres container image
+  ##
+  image:
+    repository: postgres
+    tag: 9.6
+    pullPolicy: Always
+  
+
+  ## Env Varible 
+  ##
+  postgresDB: "caesarapp"
+
+  postgresPassword: "caesarapp"
+
+  postgresUser: "password"
+
+
+
+
