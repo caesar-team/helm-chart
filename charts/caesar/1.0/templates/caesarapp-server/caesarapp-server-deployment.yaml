@@ -100,6 +100,18 @@ spec:
               key: MAILER_URL
               name: caesarapp-server
               optional: false
+        - name: BACKUP_CODE_SALT
+            valueFrom:
+              secretKeyRef:
+                key: BACKUP_CODE_SALT
+                name: caesarapp-server
+                optional: false
+        - name: BACKUP_CODE_HASH_LENGTH
+            valueFrom:
+              secretKeyRef:
+                key: BACKUP_CODE_HASH_LENGTH
+                name: caesarapp-server
+                optional: false
         image: "{{ .Values.caesarappServer.image.repository }}:{{ .Values.caesarappServer.image.tag }}"
         imagePullPolicy: {{ .Values.caesarappServer.image.pullPolicy }}
         name: caesarapp-server

@@ -129,6 +129,10 @@ caesarappServer:
   
   twoFactorServerName: "Caesar"
 
+  backupCodeHashLength: "15"
+
+  backupCodeSalt: ""
+
 postgres:
 
   enabled: true

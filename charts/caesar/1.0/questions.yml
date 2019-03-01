@@ -126,6 +126,18 @@ questions:
   type: password
   group: "Caesar Server Settings"
   label: Caesar JWT_PASSPHRASE
+- variable: caesarappServer.backupCodeHashLength
+  default: "15"
+  description: "Backup Code Hash Salt Length"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar BACKUP_CODE_SALT
+- variable: caesarappServer.backupCodeSalt
+  default: ""
+  description: "Backup Code Hash Salt"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar BACKUP_CODE_SALT
 - variable: caesarappServer.mailerUrl
   default: ""
   description: "Mailer URL"
