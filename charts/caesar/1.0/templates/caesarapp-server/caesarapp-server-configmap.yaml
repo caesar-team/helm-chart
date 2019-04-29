@@ -1,0 +1,34 @@
+﻿apiVersion: v1
+data:
+  nginx.conf: "events {\n}\nhttp {\n    sendfile on;\n    tcp_nodelay on;\n    tcp_nopush
+    on;\n\n    include mime.types;\n    gzip on;\n    gzip_http_version 1.1;\n    gzip_min_length
+    128;\n    gzip_buffers 16 8k;\n    gzip_proxied any;\n    gzip_vary on;\n    gzip_types
+    application/atom+xml application/javascript application/json application/rss+xml
+    application/vnd.ms-fontobject \n               application/x-font-ttf application/x-javascript
+    application/x-web-app-manifest+json application/xhtml+xml application/xml \n               font/opentype
+    image/svg+xml image/x-icon text/css text/javascript text/plain text/x-component
+    text/x-json text/xml;\n    gzip_disable \"msie6\";\n    gzip_comp_level 6;\n\n
+    \   open_file_cache max=200000 inactive=20s;\n    open_file_cache_valid 30s;\n
+    \   open_file_cache_min_uses 2;\n    open_file_cache_errors on;\n\n\n    server
+    {\n        listen 80 default_server;\n        listen [::]:80 default_server;\n
+    \       server_name _;\n        # Set nginx to serve files from the shared volume!\n
+    \       root /var/www/html/public;\n\n        location / {\n            # try
+    to server file directly, fallback to index.php\n            try_files $uri /index.php$is_args$args;\n
+    \       }\n\n        location ~ ^/index\\.php(/|$) {\n            fastcgi_pass
+    127.0.0.1:9000;\n            fastcgi_split_path_info ^(.+\\.php)(/.*)$;\n            include
+    fastcgi_params;\n            fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;\n
+    \           fastcgi_param DOCUMENT_ROOT $realpath_root;\n            internal;\n
+    \       }\n\n        location ~* \\.(?:ico|css|js|gif|jpe?g|png|eot|svg|ttf|woff)$
+    {\n            access_log off;\n            expires max;\n            add_header
+    Cache-Control \"public, must-revalidate, proxy-revalidate\";\n            try_files
+    $uri /index.php$is_args$args;\n            \n        }\n\n        # return 404
+    for all other php files not matching the front controller\n        # this prevents
+    access to other php files you don't want to be accessible.\n        location ~
+    \\.php$ { return 404; }\n        location = /favicon.ico { access_log off; log_not_found
+    off; }\n        location = /robots.txt { allow all; log_not_found off; access_log
+    off; }\n    }\n}"
+kind: ConfigMap
+metadata:
+  labels:
+    cattle.io/creator: norman
+  name: nginx-config

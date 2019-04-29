@@ -1,0 +1,172 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.caesarappServer.name | quote }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    component: "{{ .Values.caesarappServer.name }}"
+    heritage: "{{ .Release.Service }}"
+    release: "{{ .Release.Name }}"
+spec:
+  selector:
+    matchLabels:
+        app: "caesarapp-server"
+        component: "{{ .Values.caesarappServer.name }}"
+        release: "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        app: "caesarapp-server"
+        component: "{{ .Values.caesarappServer.name }}"
+        release: "{{ .Release.Name }}"
+    spec:
+      containers:
+      - env:
+        - name: AVAILABLE_REQUEST_SIGNATURE
+          value: {{ .Values.caesarappServer.avalibleRequestSignature | quote }}
+        - name: DB_VERSION
+          value: {{ .Values.caesarappServer.dbVersion | quote }}
+        - name: HTTPS
+          value: {{ .Values.caesarappServer.https | quote }}
+        - name: HTTP_X_FORWARDED_PROTO
+          value: {{ .Values.caesarappServer.httpXForwardedProto | quote }}
+        - name: JWT_TOKEN_TTL
+          value: {{ .Values.caesarappServer.jwtTokenTTL | quote }}
+        - name: STRICT_AUDIT_TRAIL
+          value: {{ .Values.caesarappServer.strictAuditTrail | quote }}
+        - name: SENDER_ADDRESS
+          valueFrom:
+            secretKeyRef:
+              key: SENDER_ADDRESS
+              name: caesarapp-server
+              optional: false
+        - name: OAUTH_ALLOWED_DOMAINS
+          valueFrom:
+            secretKeyRef:
+              key: OAUTH_ALLOWED_DOMAINS
+              name: caesarapp-server
+              optional: false
+        - name: GOOGLE_ID
+          valueFrom:
+            secretKeyRef:
+              key: GOOGLE_ID
+              name: caesarapp-server
+              optional: false
+        - name: GOOGLE_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: GOOGLE_SECRET
+              name: caesarapp-server
+              optional: false
+        - name: JWT_PASSPHRASE
+          valueFrom:
+            secretKeyRef:
+              key: JWT_PASSPHRASE
+              name: caesarapp-server
+              optional: false
+        - name: SUPERADMIN_PASS
+          valueFrom:
+            secretKeyRef:
+              key: SUPERADMIN_PASS
+              name: caesarapp-server
+              optional: false
+        - name: TWO_FACTOR_SERVER_NAME
+          valueFrom:
+            secretKeyRef:
+              key: TWO_FACTOR_SERVER_NAME
+              name: caesarapp-server
+              optional: false
+        - name: ALLOW_FRONT_REDIRECT_PATTERN
+          valueFrom:
+            secretKeyRef:
+              key: ALLOW_FRONT_REDIRECT_PATTERN
+              name: caesarapp-server
+              optional: false
+        - name: APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              key: APP_SECRET
+              name: caesarapp-server
+              optional: false
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: caesarapp-server
+              optional: false
+        - name: MAILER_URL
+          valueFrom:
+            secretKeyRef:
+              key: MAILER_URL
+              name: caesarapp-server
+              optional: false
+        - name: BACKUP_CODE_SALT
+            valueFrom:
+              secretKeyRef:
+                key: BACKUP_CODE_SALT
+                name: caesarapp-server
+                optional: false
+        - name: BACKUP_CODE_HASH_LENGTH
+            valueFrom:
+              secretKeyRef:
+                key: BACKUP_CODE_HASH_LENGTH
+                name: caesarapp-server
+                optional: false
+        image: "{{ .Values.caesarappServer.image.repository }}:{{ .Values.caesarappServer.image.tag }}"
+        imagePullPolicy: {{ .Values.caesarappServer.image.pullPolicy }}
+        name: caesarapp-server
+        ports:
+        - containerPort: 9000
+          name: 9000tcp00
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /var/www/html/public
+          name: caesar-shared-static
+      - image: nginx:alpine
+        imagePullPolicy: IfNotPresent
+        name: nginx
+        ports:
+        - containerPort: 80
+          name: 80tcp00
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /etc/nginx/nginx.conf
+          name: nginx-config-volume
+          subPath: nginx.conf
+        - mountPath: /var/www/html/public
+          name: caesar-shared-static
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: dockerhub
+      - name: dockerhub
+      - name: dockerhub
+      initContainers:
+      - args:
+        - -r
+        - public/.
+        - public_site/
+        command:
+        - cp
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              key: DATABASE_URL
+              name: caesarapp-server
+              optional: false
+        image: "{{ .Values.caesarappServer.image.repository }}:{{ .Values.caesarappServer.image.tag }}"
+        imagePullPolicy: {{ .Values.caesarappServer.image.pullPolicy }}
+        name: copy-public
+        volumeMounts:
+        - mountPath: /var/www/html/public_site
+          name: caesar-shared-static
+      restartPolicy: Always
+      volumes:
+      - name: caesar-shared-static
+        persistentVolumeClaim:
+          claimName: caesar-shared-static
+      - configMap:
+          defaultMode: 256
+          name: nginx-config
+          optional: false
+        name: nginx-config-volume

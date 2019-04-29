@@ -1,0 +1,56 @@
+{{- if .Values.caesarappWebApp.ingress.enabled -}}
+{{- $fullName := include "caesarappwebapp.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  rules:
+  - host: {{.Values.caesarappWebApp.ingress.hosts | quote }}
+    http:
+      paths:
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /login
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /connect
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /doc
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /admin
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /api
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /login_check
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /static/images/user/
+      - backend:
+          serviceName: caesarapp-web-app
+          servicePort: 3000
+        path: /
+      - backend:
+          serviceName: caesarapp-server
+          servicePort: 80
+        path: /bundles
+  tls:
+  - hosts:
+    - {{.Values.caesarappWebApp.ingress.hosts | quote }}
+{{- end }}

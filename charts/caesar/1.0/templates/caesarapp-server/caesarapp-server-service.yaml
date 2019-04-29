@@ -1,0 +1,17 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: caesarapp-server
+spec:
+  ports:
+  - name: 9000tcp01-caesarapp-server
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  - name: 80tcp01-nginx
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: caesarapp-server
+  type: ClusterIP
