@@ -1,0 +1,64 @@
+# Default values for caesar.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+namespace: "default-caeasar-team"
+domain: &default_domain default.caesar.team
+app_name: "Default Caesar Team"
+sender_address: "no-reply@*default_domain"
+oauth_allowed_domains: "*default_domain,4xxi.com"
+
+common:
+  config:
+    api_uri: "https://*default_domain"
+    app_uri: "https://*default_domain"
+
+aws:
+  secret:
+    aws_access_key_id: ""
+    aws_secret_access_key: ""
+    bucket_name: ""
+    
+postgres:
+  secret:
+    postgres_db: ""
+    postgres_password: ""
+    postgres_user: ""
+
+rabbitmq:
+  secret:
+    rabbitmq_default_pass: ""
+    rabbitmq_default_user: ""
+
+mailer:
+  secret:
+    mailer_user: ""
+    mailer_password: ""
+  config:
+    mailer_host: ""
+    mailer_port: ""
+    mailer_tls: ""
+    rabbitmq_channel: ""
+
+server:
+  branch: "develop"
+  config:
+    allow_front_redirect_pattern: ""
+    backup_code_hash_length: ""
+    oauth_allowed_domains: ""
+  secret:
+    app_secret: ""
+    backup_code_salt: ""
+    database_url: ""
+    google_id: ""
+    google_secret: ""
+    invitation_salt: ""
+    jwt_passphrase: ""
+    mailer_url: ""
+
+client:
+  branch: "develop"
+  secret:
+consumer:
+  branch: "develop"
+  secret:

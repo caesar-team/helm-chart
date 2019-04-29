@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  caesar:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: 2019-04-29T18:43:13.470368+03:00
+    description: A Helm chart for Kubernetes
+    digest: f7bf023214673d4ce236e36cc02c43e43efbc079b38095074e37e570b9f84ea3
+    name: caesar
+    urls:
+    - caesar-0.1.0.tgz
+    version: 0.1.0
+generated: 2019-04-29T18:43:13.467626+03:00
