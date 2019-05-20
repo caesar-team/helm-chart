@@ -6,7 +6,6 @@ namespace: "default-caeasar-team"
 domain: &default_domain default.caesar.team
 app_name: "Default Caesar Team"
 sender_address: "no-reply@*default_domain"
-oauth_allowed_domains: "*default_domain,4xxi.com"
 
 common:
   config:
@@ -28,7 +27,7 @@ postgres:
 redis:
   config:
     host: ""
-    port: ""
+    port: "6379"
   secret:
 
 rabbitmq:
@@ -50,9 +49,9 @@ server:
   branch: "develop"
   config:
     allow_front_redirect_pattern: ""
-    jwt_token_ttl: ""
+    jwt_token_ttl: "86400"
     backup_code_hash_length: ""
-    oauth_allowed_domains: ""
+    oauth_allowed_domains: "*default_domain,4xxi.com"
   secret:
     app_secret: ""
     superadmin_pass: ""

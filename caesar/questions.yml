@@ -1,0 +1,173 @@
+categories:
+- Security
+questions:
+# Docker image configurations
+- variable: namespace
+  default: "default-caeasar-team"
+  description: "Setting the namespace"
+  label: Use the namespace
+  type: string
+  show_subquestion_if: false
+  group: "Main"
+- variable: domain
+  default: "default.caeasar.team"
+  description: "Domain name"
+  label: Set the domain name
+  type: string
+  show_subquestion_if: false
+  group: "Main"
+- variable: app_name
+  default: "Default Caesar Team"
+  description: "The app name"
+  label: Set the app name
+  type: string
+  show_subquestion_if: false
+  group: "Main" 
+- variable: oauth_allowed_domains
+  default: "*default_domain,4xxi.com"
+  description: "Allowed domains, divide by comma"
+  label: Set allowed domains
+  type: string
+  show_subquestion_if: false
+  group: "Main"  
+# Caesarr Common configuration   
+- variable: common.config.api_uri
+  default: "https://*default_domain"
+  description: "Allowed domains, divide by comma"
+  label: Set allowed domains
+  type: string
+  show_subquestion_if: false
+  group: "Main"  
+
+# Caesarr APP configuration        
+- variable: caesarappWebApp.apiBasePath
+  default: "api"
+  description: Caesar API Base Path
+  type: string
+  required: true
+  group: "CaesarAPP Settings"
+  label: API Base Path
+- variable: caesarappWebApp.apiProtocol
+  default: "HTTPS"
+  description: Caesar API Protocol
+  type: string
+  required: true
+  group: "CaesarAPP Settings"
+  label: API Protocol
+- variable: caesarappWebApp.appProtocol
+  default: "HTTPS"
+  description: Caesar APP Protocol
+  type: string
+  required: true
+  group: "CaesarAPP Settings"
+  label: APP Protocol
+- variable: caesarappWebApp.appPort
+  default: "3000"
+  description: Caesar APP PORT
+  type: string
+  required: true
+  group: "CaesarAPP Settings"
+  label: APP PORT
+# Caesar Server configurations
+- variable: caesarappServer.allowFrontRedirectPattern
+  default: '/^http[s]*:\/\/(dev.caesar.team|localhost:3000)/'
+  description: "Allowed domains"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar ALLOW_FRONT_REDIRECT_PATTERN
+  required: true
+- variable: caesarappServer.appSecret
+  default: ""
+  description: "Application Secret"
+  type: password
+  group: "Caesar Server Settings"
+  label: CaesarServer APP_SECRET
+  required: true
+- variable: caesarappServer.dataBaseUrl
+  default: "pgsql://caesarapp:password@postgres:5432/caesarapp"
+  description: "PGSQL URL"
+  type: string
+  group: "Caesar Server Settings"
+  label: CaesarServer DATABASE_URL
+  required: true
+- variable: caesarappServer.googleId
+  default: ""
+  description: "Google ID"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar Google ID
+  required: true
+- variable: caesarappServer.googleSecret
+  default: ""
+  description: "Google Secret"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar Google Secret
+  required: true
+- variable: caesarappServer.jwtPassPhrase
+  default: ""
+  description: "JWT Password Phrase"
+  type: password
+  group: "Caesar Server Settings"
+  label: Caesar JWT_PASSPHRASE
+- variable: caesarappServer.backupCodeHashLength
+  default: "15"
+  description: "Backup Code Hash Salt Length"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar BACKUP_CODE_SALT
+- variable: caesarappServer.backupCodeSalt
+  default: ""
+  description: "Backup Code Hash Salt"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar BACKUP_CODE_SALT
+- variable: caesarappServer.mailerUrl
+  default: ""
+  description: "Mailer URL"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar MAILER_URL
+  required: true
+- variable: caesarappServer.oauthAllowedDomain
+  default: "gmail.com"
+  description: "OAUTH ALLOWED DOMAIN"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar OAUTH_ALLOWED_DOMAINS
+  required: true
+- variable: caesarappServer.senderAddress
+  default: ""
+  description: "Sender address email"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar SENDER_ADDRESS
+  required: true
+- variable: caesarappServer.twoFactorServerName
+  default: "Caesar"
+  description: "Two Factor Server Name"
+  type: string
+  group: "Caesar Server Settings"
+  label: Caesar TWO_FACTOR_SERVER_NAME
+  required: true
+# Postgres configurations
+- variable: postgres.postgresDB
+  default: "caesarapp"
+  description: "Postgres Database name"
+  type: string
+  group: "Postgres Settings"
+  label: Postgres POSTGRES_DB
+  required: true
+- variable: postgres.postgresUser
+  default: "caesarapp"
+  description: "Postgres User"
+  type: string
+  group: "Postgres Settings"
+  label: Postgres POSTGRES_USER
+  required: true
+- variable: postgres.postgresPassword
+  default: ""
+  description: "Postgres Password user"
+  type: password
+  group: "Postgres Settings"
+  label: Postgres POSTGRES_PASSWORD

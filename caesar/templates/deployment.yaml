@@ -3,11 +3,6 @@ kind: Namespace
 metadata:
   name: {{ .Values.namespace }}
   app: {{ template "caesar.name" . }}
-  labels:
-    app.kubernetes.io/name: {{ include "caesar.name" . }}
-    helm.sh/chart: {{ include "caesar.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
 ---
 apiVersion: v1
 kind: ConfigMap
