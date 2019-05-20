@@ -25,6 +25,12 @@ postgres:
     postgres_password: ""
     postgres_user: ""
 
+redis:
+  config:
+    host: ""
+    port: ""
+  secret:
+
 rabbitmq:
   secret:
     rabbitmq_default_pass: ""
@@ -59,8 +65,8 @@ server:
     mailer_url: ""
 
 client:
-  branch: "develop"
+  branch: "master"
   secret:
 consumer:
-  branch: "develop"
+  branch: "master"
   secret:

@@ -17,7 +17,7 @@ metadata:
     app: redis
 data:
   REDIS_HOST: {{ default "redis" .Values.redis.config.host }}
-  REDIS_PORT: {{ default "6379" .Values.redis.config.port }} 
+  REDIS_PORT: {{ default "6379" .Values.redis.config.port | quote }} 
 ---
 apiVersion: v1
 kind: Service
@@ -371,7 +371,7 @@ data:
   SENDER_ADDRESS: {{ .Values.sender_address }}
   OAUTH_ALLOWED_DOMAINS: {{ .Values.server.config.oauth_allowed_domains }}
   ALLOW_FRONT_REDIRECT_PATTERN: {{ .Values.server.config.allow_front_redirect_pattern }}
-  JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl }}
+  JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl | quote }}
   HTTP_X_FORWARDED_PROTO: https
   HTTPS: "on"
 ---
@@ -485,6 +485,11 @@ data:
 
         location / {
           try_files $uri /index.php$is_args$args;
+        }
+
+        location /static/ {
+          alias /var/www/html/public/static/;
+          autoindex off;
         }
 
         location ~ ^/index\.php(/|$) {
