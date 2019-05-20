@@ -8,7 +8,78 @@ metadata:
     helm.sh/chart: {{ include "caesar.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  labels:
+    app: redis
+data:
+  REDIS_HOST: {{ default "redis" .Values.redis.config.host }}
+  REDIS_PORT: {{ default "6379" .Values.redis.config.port }} 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name:  redis
+spec:
+  selector:
+    app:  redis
+  type:  NodePort
+  ports:
+    - name:  redis-port
+      port:  {{ default "6379" .Values.redis.config.port }} 
+      targetPort:  {{ default "6379" .Values.redis.config.port }} 
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  serviceName: "redis"
+  replicas: 1
+  template:
+    metadata:
+      namespace: {{ .Values.namespace }}
+      labels:
+        app.kubernetes.io/name: {{ include "caesar.name" . }}
+        helm.sh/chart: {{ include "caesar.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        envFrom:
+        - configMapRef:
+            name: redis-config
+        ports:
+        - containerPort: 5672
+          name: redis-port
+        volumeMounts:
+        - name: redis-data
+          mountPath: /var/lib/redis
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+      namespace: {{ .Values.namespace }}
+      labels:
+        app.kubernetes.io/name: {{ include "caesar.name" . }}
+        helm.sh/chart: {{ include "caesar.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app: redis
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "do-block-storage"
+      resources:
+        requests:
+          storage: 5Gi
 ---
 apiVersion: v1
 kind: Secret
@@ -22,6 +93,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
   APP_SECRET: {{ .Values.server.secret.app_secret | b64enc | quote }}
+  SUPERADMIN_PASS: {{ .Values.server.secret.superadmin_pass | b64enc | quote }}
   BACKUP_CODE_SALT: {{ .Values.server.secret.backup_code_salt | b64enc | quote }}
   DATABASE_URL: {{ .Values.server.secret.database_url | b64enc | quote }}
   GOOGLE_ID: {{ .Values.server.secret.google_id | b64enc | quote }}
@@ -298,6 +370,8 @@ data:
   APP_NAME: {{ default "Caesar" .Values.app_name }}
   SENDER_ADDRESS: {{ .Values.sender_address }}
   OAUTH_ALLOWED_DOMAINS: {{ .Values.server.config.oauth_allowed_domains }}
+  ALLOW_FRONT_REDIRECT_PATTERN: {{ .Values.server.config.allow_front_redirect_pattern }}
+  JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl }}
   HTTP_X_FORWARDED_PROTO: https
   HTTPS: "on"
 ---
@@ -511,6 +585,10 @@ spec:
         volumeMounts:
         - mountPath: /var/www/html/public_site
           name: caesar-shared-static
+      securityContext:
+        runAsUser: 82
+        runAsGroup: 82
+        fsGroup: 82
       volumes:
       - name: caesar-certificate
         persistentVolumeClaim:
@@ -688,7 +766,7 @@ spec:
             - configMapRef:
                 name: rabbitmq-config  
             - configMapRef:
-                name: caesarapp-config
+                name: caesar-server-config
             - configMapRef:
                 name: email-consumer-config    
             - secretRef:

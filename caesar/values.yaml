@@ -44,10 +44,12 @@ server:
   branch: "develop"
   config:
     allow_front_redirect_pattern: ""
+    jwt_token_ttl: ""
     backup_code_hash_length: ""
     oauth_allowed_domains: ""
   secret:
     app_secret: ""
+    superadmin_pass: ""
     backup_code_salt: ""
     database_url: ""
     google_id: ""
