@@ -363,7 +363,7 @@ data:
   APP_URI: {{ .Values.common.config.app_uri }}
   APP_NAME: {{ default "Caesar" .Values.app_name }}
   SENDER_ADDRESS: {{ .Values.sender_address }}
-  OAUTH_ALLOWED_DOMAINS: {{ .Values.server.config.oauth_allowed_domains }}
+  OAUTH_ALLOWED_DOMAINS: {{ .Values.server.config.oauth_allowed_domains | quote }}
   ALLOW_FRONT_REDIRECT_PATTERN: {{ .Values.server.config.allow_front_redirect_pattern }}
   JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl | quote }}
   HTTP_X_FORWARDED_PROTO: https
