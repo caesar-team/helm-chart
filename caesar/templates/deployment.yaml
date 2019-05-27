@@ -559,6 +559,8 @@ spec:
         ports:
         - name: php-fpm
           containerPort: 9000
+        securityContext:
+          runAsUser: 0  
         volumeMounts:
         - mountPath: /var/www/html/public
           name: caesar-shared-static
