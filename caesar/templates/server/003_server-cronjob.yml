@@ -1,0 +1,19 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-clear-message-history
+spec:
+  schedule: "0 12 * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: clear-message-history
+            image: "caesarteam/caesar-server:{{ .Values.server.branch }}"
+            command: ["/usr/local/bin/php", "bin/console", "app:clear-message-history", "-e", "prod"]
+            envFrom:
+            - secretRef:
+                name: caesar-server-secret
+          restartPolicy: OnFailure

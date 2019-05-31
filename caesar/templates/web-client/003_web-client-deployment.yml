@@ -1,0 +1,38 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: caesar-web-client
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: caesar-web-client
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        app: caesar-web-client
+    spec:
+      containers:
+      - name: caesar-web-client
+        image: "caesarteam/caesar-web-client:{{ .Values.client.branch }}"
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: caesar-web-client-config
+        - configMapRef:
+            name: caesar-server-config    
+        ports:
+          - containerPort: 3000
+            name: http
+            protocol: TCP           
+      imagePullSecrets:
+      - name: dockerhub
+      restartPolicy: Always

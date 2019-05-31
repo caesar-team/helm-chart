@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis
+spec:
+  selector:
+    matchLabels:
+      app: redis
+  serviceName: "redis"
+  replicas: 1
+  template:
+    metadata:
+      namespace: {{ .Values.namespace }}
+      labels:
+        app.kubernetes.io/name: {{ include "caesar.name" . }}
+        helm.sh/chart: {{ include "caesar.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        envFrom:
+        - configMapRef:
+            name: redis-config
+        ports:
+        - containerPort: 5672
+          name: redis-port
+        volumeMounts:
+        - name: redis-data
+          mountPath: /var/lib/redis
+  volumeClaimTemplates:
+  - metadata:
+      name: redis-data
+      namespace: {{ .Values.namespace }}
+      labels:
+        app.kubernetes.io/name: {{ include "caesar.name" . }}
+        helm.sh/chart: {{ include "caesar.chart" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app: redis
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: {{ default "do-block-storage" .Values.redis.storageClassName }}
+      resources:
+        requests:
+          storage: 5Gi

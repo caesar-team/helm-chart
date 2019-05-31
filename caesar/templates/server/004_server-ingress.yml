@@ -1,0 +1,54 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: caesar-server
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: caesar-server
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+    nginx.org/client-max-body-size: 50m
+spec:
+  rules:
+  - host: {{ .Values.domain }}
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /admin
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /bundles
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /connect
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /doc
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /login
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /login_check
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+      - path: /static/images/user/
+        backend:
+          serviceName: caesar-server
+          servicePort: 80
+  tls:
+  - hosts:
+    - {{ .Values.domain }}

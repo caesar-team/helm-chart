@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: email-consumer-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app: caesar-server-email-consumer
+data:
+  MAILER_HOST: {{ .Values.mailer.config.mailer_host  | quote }}
+  MAILER_PORT: {{ .Values.mailer.config.mailer_port  | quote }}
+  MAILER_TLS: {{ .Values.mailer.config.mailer_tls    | quote }}
+  RABBITMQ_CHANNEL: {{ default "send-message" .Values.mailer.config.rabbitmq_channel | quote }}
