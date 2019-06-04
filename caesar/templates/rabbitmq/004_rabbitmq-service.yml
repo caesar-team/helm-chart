@@ -9,9 +9,9 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
+  clusterIP: None
   selector:
     app:  rabbitmq
-  type:  NodePort
   ports:
     - name:  rabbitmq-port
       port:  5672
