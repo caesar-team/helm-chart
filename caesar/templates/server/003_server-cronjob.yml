@@ -2,6 +2,12 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: cron-clear-message-history
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   schedule: "0 12 * * *"
   concurrencyPolicy: Replace
@@ -17,3 +23,38 @@ spec:
             - secretRef:
                 name: caesar-server-secret
           restartPolicy: OnFailure
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: send-message-consumer
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Replace
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: clear-message-history
+            image: "caesarteam/caesar-server:{{ .Values.server.branch }}"
+            command: ["/usr/local/bin/php", "bin/console"]
+            args: ["rabbitmq:consumer", "send_message", "-e", "prod", "-m", "$(RABBITMQ_MAX_COUNT)"]
+            envFrom:
+            - configMapRef:
+                name: caesar-server-config
+            - secretRef:
+                name: caesar-server-secret
+            - configMapRef:
+                name: rabbitmq-config
+            - secretRef:
+                name: rabbitmq-secret
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 30

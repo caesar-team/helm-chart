@@ -66,6 +66,3 @@ server:
 client:
   branch: "master"
   secret:
-consumer:
-  branch: "master"
-  secret:

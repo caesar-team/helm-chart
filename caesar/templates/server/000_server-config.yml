@@ -19,6 +19,8 @@ data:
   JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl | quote }}
   HTTP_X_FORWARDED_PROTO: https
   HTTPS: "on"
+  RABBITMQ_IDLE_TIMEOUT: {{ default "30" .Values.server.config.rabbitmq_idle_timeout | quote }}
+  RABBITMQ_MAX_COUNT: {{ default "10" .Values.server.config.rabbitmq_max_count | quote }}
 ---
 apiVersion: v1
 kind: ConfigMap
