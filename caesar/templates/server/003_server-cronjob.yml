@@ -56,5 +56,9 @@ spec:
                 name: rabbitmq-config
             - secretRef:
                 name: rabbitmq-secret
+            - secretRef:
+                name: mailer-secret
+            - configMapRef:
+                name: mailer-config      
           restartPolicy: OnFailure
           terminationGracePeriodSeconds: 30

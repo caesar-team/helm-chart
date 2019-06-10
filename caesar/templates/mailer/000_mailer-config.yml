@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: mailer-config
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+data:
+  MAILER_TRANSPORT: {{ default "smtp" .Values.mailer.config.mailer_transport | quote }}
+  MAILER_HOST: {{ .Values.mailer.config.mailer_host | quote }}
+  MAILER_PORT: {{ .Values.mailer.config.mailer_port | quote }}
+  

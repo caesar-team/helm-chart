@@ -14,7 +14,10 @@ spec:
     matchLabels:
       app: caesar-server
   strategy:
-    type: Recreate  
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 25%
+    type: RollingUpdate 
   template:
     metadata:
       labels:
@@ -36,7 +39,11 @@ spec:
         - configMapRef:
             name: rabbitmq-config
         - configMapRef:
-            name: redis-config    
+            name: redis-config
+        - secretRef:
+            name: mailer-secret
+        - configMapRef:
+            name: mailer-config        
         ports:
         - name: php-fpm
           containerPort: 9000 

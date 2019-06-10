@@ -30,3 +30,7 @@ Create chart name and version as used by the chart label.
 {{- define "caesar.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
+
+{{- define "mailerUrl" }}
+{{- printf "%s://%s:%s@%s:%s/?timeout=60&encryption=tls&auth_mode=login&" .Values.mailer.config.mailer_transport .Values.mailer.secret.mailer_user (.Values.mailer.secret.mailer_password | replace "+" "%2B" ) .Values.mailer.secret.mailer_host .Values.mailer.secret.mailer_port }}
+{{- end }}
