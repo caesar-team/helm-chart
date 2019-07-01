@@ -3,20 +3,20 @@ entries:
   caesar:
   - apiVersion: v1
     appVersion: 1.3.1
-    created: 2019-07-01T15:00:48.23717+03:00
+    created: 2019-07-01T15:08:07.525161+03:00
     description: A Caesar helm chart for Kubernetes
-    digest: 2ae695d7b61dc7aff75ab0f664a51dc2995bfc9a77b2ac86f2b81148e1d525b0
+    digest: f056a5fc00cd2273b14462884f7691b47b65b7f0815783c72c3ccdaf9482ccbd
     name: caesar
     urls:
     - caesar-1.3.1.tgz
     version: 1.3.1
   - apiVersion: v1
     appVersion: 1.3.0
-    created: 2019-07-01T15:00:48.22223+03:00
+    created: 2019-07-01T15:08:07.50382+03:00
     description: A Caesar helm chart for Kubernetes
     digest: 00dbb7de39a506736faefc2ca72c9bb3c49ddb13b55815cef9670a880608331b
     name: caesar
     urls:
     - caesar-1.3.0.tgz
     version: 1.3.0
-generated: 2019-07-01T15:00:48.21917+03:00
+generated: 2019-07-01T15:08:07.498763+03:00
