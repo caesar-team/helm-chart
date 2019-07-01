@@ -8,4 +8,4 @@ if [ ! -d "$DIR" ]; then
     exit 1 # terminate and indicate error
 fi
 helm package $DIR -d $DIR
-helm repo index $ROOT
+helm repo index $DIR
