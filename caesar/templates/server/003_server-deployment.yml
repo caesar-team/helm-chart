@@ -20,6 +20,7 @@ spec:
     type: RollingUpdate 
   template:
     metadata:
+      namespace: {{ .Values.namespace }}
       labels:
         app.kubernetes.io/name: {{ include "caesar.name" . }}
         helm.sh/chart: {{ include "caesar.chart" . }}
