@@ -8,6 +8,7 @@ metadata:
     helm.sh/chart: {{ include "caesar.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
+    keel.sh/policy: all
 spec:
   replicas: 1
   selector:
@@ -26,6 +27,7 @@ spec:
         helm.sh/chart: {{ include "caesar.chart" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/managed-by: {{ .Release.Service }}
+        keel.sh/policy: all
         app: caesar-server
     spec:
       containers:
