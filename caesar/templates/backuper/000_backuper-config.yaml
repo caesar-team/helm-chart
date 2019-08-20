@@ -1,0 +1,22 @@
+﻿{{ if .Values.backuper.enable }}
+apiVersion: v1
+data:
+  AWS_BUCKET_BACKUP_PATH: {{ .Values.backuper.config.aws_bucket_backup_path | quote }}
+  AWS_BUCKET_NAME: {{ .Values.backuper.config.aws_bucket_name | quote }}
+  AWS_DEFAULT_REGION: {{ .Values.backuper.config.aws_default_region | quote }}
+  DB_HOST: {{ .Values.backuper.config.db_host | quote }}
+  DB_PORT: {{ .Values.backuper.config.db_port | quote }}
+  ENCRYPT: {{ .Values.backuper.config.encrypt | quote }}
+  SLACK_CHANNEL: {{ .Values.backuper.config.slack_channel | quote }}
+  SLACK_ENABLED: {{ .Values.backuper.config.slack_enabled | quote }}
+  SLACK_WEBHOOK_URL: {{ .Values.backuper.config.slack_webhook_url | quote }}
+kind: ConfigMap
+metadata:
+  name: backuper-config
+  namespace: {{ .Values.namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar.name" . }}
+    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{ end }}
