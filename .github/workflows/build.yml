@@ -11,6 +11,7 @@ jobs:
     
     steps:
     - uses: docker://alpine/helm:2.14.0
-      name: Run the buld script
+      name: Init
+    - name: Build
       run: ./release.sh ${CHART_NAME} ${GITHUB_REF}
-      shell: bash
+      shell: bash  
