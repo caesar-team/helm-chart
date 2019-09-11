@@ -1,0 +1,14 @@
+name: Build chart on the tag action
+
+on: [tag]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: docker://alpine/helm:2.14.0
+      name: Run the buld script
+      run: ./release.sh ${CHART_NAME} ${GITHUB_REF}
+      shell: bash
