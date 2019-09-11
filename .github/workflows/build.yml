@@ -1,6 +1,7 @@
 name: Build chart on the tag action
 
-on: [tag]
+on:
+  push: ['tags']
 
 jobs:
   build:
