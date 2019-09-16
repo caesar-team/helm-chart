@@ -1,11 +1,10 @@
-name: Build chart on the tag action
+name: Publish Helm chart
 
 on:
   push:
     tags:
     - '*'
-    
-name: Publish Helm chart
+
 jobs:
   helmGh-pages:
     name: Helm gh-pages
