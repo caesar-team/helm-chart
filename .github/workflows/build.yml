@@ -1,8 +1,9 @@
 name: Publish Helm chart
 
 on:
-  push: 
-    - tags
+  push:
+    tags:
+    - '*'
 
 jobs:
   helmGh-pages:
