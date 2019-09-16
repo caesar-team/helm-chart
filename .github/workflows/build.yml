@@ -1,17 +1,20 @@
 name: Build chart on the tag action
 
-on: 
-  release:
-    types: [created]
-
-jobs:
-  build:
-
-    runs-on: ubuntu-latest
+on:
+  push:
+    tags:
+    - '*'
     
+name: Publish Helm chart
+jobs:
+  helmGh-pages:
+    name: Helm gh-pages
+    runs-on: ubuntu-latest
     steps:
-    - uses: docker://alpine/helm:2.14.0
-      name: Init
-    - name: Build
-      run: ./release.sh ${CHART_NAME} ${GITHUB_REF}
-      shell: bash  
+    - uses: actions/checkout@master
+    - name: Helm gh-pages
+      uses: stefanprodan/gh-actions/helm-gh-pages@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        args: caesar https://caesar-team.github.io/caesar
