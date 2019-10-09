@@ -14,9 +14,9 @@ fi
 
 if [[ $VERSION =~ $SEMVER_REGEX ]]; then
  echo "INFO: Version $VERSION"
- helm package $DIR  --version=$VERSION -d $DIR
+    helm package $DIR  --version=$VERSION -d $DIR
 else
-  helm package $DIR -d $DIR
+    helm package $DIR -d $DIR
 fi
 
 helm repo index $DIR
