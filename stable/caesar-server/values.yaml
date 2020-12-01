@@ -1,0 +1,91 @@
+# Default values for caesar.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+namespace: "default-caeasar-team"
+domain: &default_domain default.caesar.team
+app_name: "Default Caesar Team"
+sender_address: "no-reply@*default_domain"
+
+# global:
+#   imageRegistry: myRegistryName
+#   imagePullSecrets:
+#     - myRegistryKeySecretName
+#   storageClass: myStorageClass
+
+image:
+  registry: docker.io
+  repository: caesarteam/caesar-server
+  tag: master
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+  ## Set to true if you would like to see extra information on logs
+  ##
+  debug: false
+
+common:
+  config:
+    api_uri: "https://*default_domain"
+    app_uri: "https://*default_domain"
+    
+postgresql:
+  name: "postgresql"
+  enabled: true
+  service: 
+    port: "5432"
+  persistence: 
+    size: "10Gi"  
+  postgresqlDatabase: ""
+  postgresqlPassword: ""
+  postgresqlUsername: ""
+
+redis:
+  enabled: false 
+  name: "redis"
+  cluster:
+    enabled: false
+  redisPort: "6379"
+  password: ""
+
+rabbitmq:
+  enabled: true
+  name: "rabbitmq"
+  resourceName: "messages"
+  service:
+    port: "5672"
+  auth:
+    username: ""
+    password: ""
+    erlangCookie: ""
+
+
+mailer:
+  enable: true
+  secret:
+    mailer_dsn: ""
+
+
+server:
+  image: 
+    tag: "develop"
+  config:
+    allow_front_redirect_pattern: "*"
+    jwt_token_ttl: "86400"
+    backup_code_hash_length: "6"
+    oauth_allowed_domains: "*default_domain,4xxi.com"
+  secret:
+    app_secret: ""
+    superadmin_pass: ""
+    backup_code_salt: ""
+    google_id: ""
+    google_secret: ""
+    invitation_salt: ""
+    jwt_passphrase: ""
+    mailer_dsn: ""
+    json_rpc_secret: ""

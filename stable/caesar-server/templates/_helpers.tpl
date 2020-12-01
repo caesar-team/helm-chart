@@ -31,6 +31,10 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{- define "mailerUrl" }}
-{{- printf "%s://%s:%s@%s:%s/?timeout=60&encryption=tls&auth_mode=login&" .Values.mailer.config.mailer_transport .Values.mailer.secret.mailer_user (.Values.mailer.secret.mailer_password | replace "+" "%2B" ) .Values.mailer.config.mailer_host .Values.mailer.config.mailer_port | b64enc | quote }}
+{{- define "messengerTransportDsn" }}
+{{- printf "amqp://%s:%s@%s:%s/%s" .Values.rabbitmq.auth.username (.Values.rabbitmq.auth.password | replace "+" "%2B" ) .Values.rabbitmq.name .Values.rabbitmq.service.port .Values.rabbitmq.resourceName | b64enc | quote }}
+{{- end }}
+
+{{- define "databaseDsn" }}
+{{- printf "pgsql://%s:%s@%s:%s/%s" .Values.postgresql.postgresqlUsername (.Values.postgresql.postgresqlPassword | replace "+" "%2B" ) .Values.postgresql.name .Values.postgresql.service.port .Values.postgresql.postgresqlDatabase | b64enc | quote }}
 {{- end }}
