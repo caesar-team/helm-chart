@@ -1,16 +1,16 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name:  {{ include "caesar.fullname" . }}-caesar-server
+  name:  {{ include "caesar-server.fullname" . }}-headless
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app.kubernetes.io/name: {{ include "caesar.name" . }}
-    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/name: {{ include "caesar-server.fullname" . }}
+    helm.sh/chart: {{ include "caesar-server.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   selector:
-    app:  caesar-server
+    app.kubernetes.io/name:  {{include "caesar-server.fullname" . }}
   type:  NodePort
   ports:
     - name:  http

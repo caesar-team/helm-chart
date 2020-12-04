@@ -1,14 +1,13 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ include "caesar.fullname" . }}-caesar-server
+  name: {{ include "caesar-server.fullname" . }}-caesar-server
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    app.kubernetes.io/name: {{ include "caesar.name" . }}
-    helm.sh/chart: {{ include "caesar.chart" . }}
+    app.kubernetes.io/name: {{ include "caesar-server.fullname" . }}
+    helm.sh/chart: {{ include "caesar-server.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
-    app: caesar-server
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 50m
     nginx.org/client-max-body-size: 50m

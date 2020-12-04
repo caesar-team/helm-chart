@@ -1,9 +1,9 @@
 # Default values for caesar.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-# nameOverride: ""
-# fullnameOverride: ""
-# namespace: ""
+nameOverride: ""
+fullnameOverride: ""
+namespace: ""
 domain: &default_domain default.caesar.team
 app_name: "Default Caesar Team"
 sender_address: "no-reply@*default_domain"
