@@ -8,11 +8,11 @@ domain: &default_domain default.caesar.team
 app_name: "Default Caesar Team"
 sender_address: "no-reply@*default_domain"
 
-# global:
+global:
 #   imageRegistry: myRegistryName
 #   imagePullSecrets:
 #     - myRegistryKeySecretName
-#   storageClass: myStorageClass
+  storageClass: "hostpath"
 
 image:
   registry: docker.io
@@ -74,6 +74,11 @@ mailer:
 server:
   image: 
     tag: "develop"
+  persistStorage:
+    static:
+      size: "5Gi"
+    certificate: 
+      size: "1Gi"
   config:
     allow_front_redirect_pattern: "*"
     cors_allow_origin: "*"

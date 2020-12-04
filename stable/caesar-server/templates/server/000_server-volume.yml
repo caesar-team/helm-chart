@@ -13,8 +13,8 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: {{ default "do-block-storage" .Values.storageClassName }}
+      storage: {{ default "1Gi" .Values.server.persistStorage.certificate.size }}
+  storageClassName: {{ default "hostpath" .Values.global.storageClass }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -31,5 +31,5 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: {{ default "do-block-storage" .Values.storageClassName }}
+      storage: {{ default "5Gi" .Values.server.persistStorage.static.size }}
+  storageClassName: {{ default "hostpath" .Values.global.storageClass }}
