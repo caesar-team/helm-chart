@@ -15,7 +15,7 @@ data:
   APP_URI: {{ .Values.common.config.app_uri }}
   APP_NAME: {{ default "Caesar" .Values.app_name }}
   CORS_ALLOW_ORIGIN: {{ default "*" .Values.server.config.cors_allow_origin | quote }}
-  DOMAIN_ADMIN_EMAIL: {{ required .Values.server.config.domain_admin_email | quote }}
+  DOMAIN_ADMIN_EMAIL: {{ required "A valid .Values.server.config.domain_admin_email entry required!"  .Values.server.config.domain_admin_email | quote }}
   HTTP_X_FORWARDED_PROTO: https
   HTTPS: "on"
   JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl | quote }}

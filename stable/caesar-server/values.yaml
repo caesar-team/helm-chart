@@ -76,12 +76,14 @@ server:
     tag: "develop"
   config:
     allow_front_redirect_pattern: "*"
+    domain_admin_email: ""
     jwt_token_ttl: "86400"
     backup_code_hash_length: "6"
     oauth_allowed_domains: "*default_domain,4xxi.com"
+    rabbitmq_max_count: "5"
+    rabbitmq_idle_timeout: "100"
   secret:
     app_secret: ""
-    superadmin_pass: ""
     backup_code_salt: ""
     google_id: ""
     google_secret: ""
