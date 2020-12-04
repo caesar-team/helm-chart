@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service}}
     app: caesar-server
 data:
-  ALLOW_FRONT_REDIRECT_PATTERN: {{ required "A valid .Values.server.secret.app_secret entry required!" .Values.server.config.allow_front_redirect_pattern }}
+  ALLOW_FRONT_REDIRECT_PATTERN: {{ required "A valid .Values.server.secret.app_secret entry required!" .Values.server.config.allow_front_redirect_pattern | quote }}
   API_URI: {{ .Values.common.config.api_uri }}
   APP_URI: {{ .Values.common.config.app_uri }}
   APP_NAME: {{ default "Caesar" .Values.app_name }}

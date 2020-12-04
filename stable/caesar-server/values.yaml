@@ -76,6 +76,7 @@ server:
     tag: "develop"
   config:
     allow_front_redirect_pattern: "*"
+    cors_allow_origin: "*"
     domain_admin_email: ""
     jwt_token_ttl: "86400"
     backup_code_hash_length: "6"
