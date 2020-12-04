@@ -21,7 +21,7 @@ data:
   JWT_TOKEN_TTL: {{ default "86400" .Values.server.config.jwt_token_ttl | quote }}
   OAUTH_ALLOWED_DOMAINS: {{ .Values.server.config.oauth_allowed_domains | quote }}
   SENDER_ADDRESS: {{ .Values.sender_address}}
-
+  POSTGRES_DB: {{ .Values.postgresql.postgresqlDatabase | quote }}
   RABBITMQ_IDLE_TIMEOUT: {{ default "30" .Values.server.config.rabbitmq_idle_timeout | quote }}
   RABBITMQ_MAX_COUNT: {{ default "10" .Values.server.config.rabbitmq_max_count | quote }}
 

@@ -64,7 +64,6 @@ rabbitmq:
     password: ""
     erlangCookie: ""
 
-
 mailer:
   enable: true
   secret:
