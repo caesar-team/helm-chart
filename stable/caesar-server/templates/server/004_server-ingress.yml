@@ -1,8 +1,8 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: caesar-server
-  namespace: {{ .Values.namespace }}
+  name: {{ include "caesar.fullname" . }}-caesar-server
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/name: {{ include "caesar.name" . }}
     helm.sh/chart: {{ include "caesar.chart" . }}

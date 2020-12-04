@@ -32,9 +32,9 @@ Create chart name and version as used by the chart label.
 {{- end -}}
 
 {{- define "messengerTransportDsn" }}
-{{- printf "amqp://%s:%s@%s:%s/%s" .Values.rabbitmq.auth.username (.Values.rabbitmq.auth.password | replace "+" "%2B" ) .Values.rabbitmq.name .Values.rabbitmq.service.port .Values.rabbitmq.resourceName | b64enc | quote }}
+{{- printf "amqp://%s:%s@%s:%s/%s" .Values.rabbitmq.auth.username (.Values.rabbitmq.auth.password | replace "+" "%2B" ) (print .Release.Name "-rabbitmq-headless") .Values.rabbitmq.service.port .Values.rabbitmq.resourceName | b64enc | quote }}
 {{- end -}}
 
 {{- define "databaseDsn" }}
-{{- printf "pgsql://%s:%s@%s:%s/%s" .Values.postgresql.postgresqlUsername (.Values.postgresql.postgresqlPassword | replace "+" "%2B" ) .Values.postgresql.name .Values.postgresql.service.port .Values.postgresql.postgresqlDatabase | b64enc | quote }}
+{{- printf "pgsql://%s:%s@%s:%s/%s" .Values.postgresql.postgresqlUsername (.Values.postgresql.postgresqlPassword | replace "+" "%2B" ) (print .Release.Name "-postgresql-headless") .Values.postgresql.service.port .Values.postgresql.postgresqlDatabase | b64enc | quote }}
 {{- end -}}

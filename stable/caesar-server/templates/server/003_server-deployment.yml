@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: caesar-server
-  namespace: {{ .Values.namespace}}
+  name: {{ include "caesar.fullname" . }}-caesar-server
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/name: {{include "caesar.name" . }}
     helm.sh/chart: {{include "caesar.chart" . }}
@@ -21,7 +21,7 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      namespace: {{ .Values.namespace}}
+      namespace: {{ .Release.namespace}}
       labels:
         app.kubernetes.io/name: {{include "caesar.name" . }}
         helm.sh/chart: {{include "caesar.chart" . }}

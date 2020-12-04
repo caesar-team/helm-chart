@@ -1,2 +1,2 @@
 #!/bin/env sh
-helm install --debug --dry-run clunky-serval ./stable/caesar-server
+helm install -f values.yml --debug --dry-run --namespace=default-caeasar-team test-caesar-team ./stable/caesar-server > result/result.yaml
