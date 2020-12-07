@@ -53,7 +53,7 @@ spec:
             image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
             command: ["/usr/local/bin/php", "bin/console"]
-            args: ["messenger:consume", "async", "-e", "prod", "--limit", "$(RABBITMQ_MAX_COUNT)"]
+            args: ["messenger:consume", "async", "-e", "prod", "--limit", "$(RABBITMQ_MAX_COUNT)", "--time-limit", "60"]
             envFrom:
             - configMapRef:
                 name: {{ include "caesar-server.fullname" . }}-config
