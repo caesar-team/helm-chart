@@ -1,8 +1,4 @@
 {
     "prettier.bracketSpacing": false,
-    "prettier.enable": false,
-    "prettier.disableLanguages": [
-        "yaml",
-        "yml"
-    ]
+    "prettier.enable": true
 }

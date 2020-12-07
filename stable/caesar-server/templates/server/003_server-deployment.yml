@@ -32,7 +32,7 @@ spec:
       containers:
         - name: {{include "caesar-server.fullname" . }}-app
           image: "{{ .Values.image.registry}}/{{ .Values.image.repository}}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ default "Always" .Values.image.pullPolicy | quote }}
+          imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
           envFrom:
             - configMapRef:
                 name: {{ include "caesar-server.fullname" . }}-config
@@ -63,7 +63,7 @@ spec:
       initContainers:
         - name: copy-public
           image: "{{ .Values.image.registry}}/{{ .Values.image.repository}}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ default "Always" .Values.image.pullPolicy | quote }}
+          imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
           command: ["/bin/cp", "-r", "public/.", "public_site/"]
           volumeMounts:
             - mountPath: /var/www/html/public_site
