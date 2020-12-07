@@ -10,7 +10,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   selector:
-    app.kubernetes.io/name:  {{include "caesar-server.fullname" . }}
+    app.kubernetes.io/name:  {{include "caesar-server.fullname" . }}-app
   type:  NodePort
   ports:
     - name:  http

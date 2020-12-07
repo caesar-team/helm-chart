@@ -30,5 +30,5 @@ spec:
   - ReadWriteOnce
   resources:
     requests:
-      storage: {{ default "5Gi" .Values.server.persistStorage.static.size }}
+      storage: {{ default "1Gi" .Values.server.persistStorage.static.size }}
   storageClassName: {{ default "hostpath" .Values.global.storageClass }}
