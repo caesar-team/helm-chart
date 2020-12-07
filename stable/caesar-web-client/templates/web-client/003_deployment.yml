@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "caesar-web-client.fullname" . }}-app
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{include "caesar-web-client.fullname" . }}-app
+    helm.sh/chart: {{include "caesar-web-client.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name}}
+    app.kubernetes.io/managed-by: {{ .Release.Service}}
+    keel.sh/policy: all
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name:  {{include "caesar-web-client.fullname" . }}-app
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        keel.sh/policy: all
+        app.kubernetes.io/name:  {{include "caesar-web-client.fullname" . }}-app
+    spec:
+      containers:
+        - name: {{include "caesar-web-client.fullname" . }}-app
+          image: "{{ .Values.image.registry}}/{{ .Values.image.repository}}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "caesar-web-client.fullname" . }}-config
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+

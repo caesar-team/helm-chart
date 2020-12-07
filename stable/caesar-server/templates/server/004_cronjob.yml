@@ -3,6 +3,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: {{include "caesar-server.fullname" . }}-deffered-send-cron
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/name: {{include "caesar-server.fullname" . }}-deffered-send-cron
     helm.sh/chart: {{ include "caesar-server.chart" . }}
@@ -33,7 +34,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: {{include "caesar-server.fullname" . }}-messenger-consumer-cron
-  namespace: {{ .Values.namespace }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/name: {{ include "caesar-server.fullname" . }}-messenger-consumer-cron
     helm.sh/chart: {{ include "caesar-server.chart" . }}

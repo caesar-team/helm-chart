@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ include "caesar-server.fullname" . }}-caesar-server
+  name: {{ include "caesar-server.fullname" . }}-ingress
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/name: {{ include "caesar-server.fullname" . }}
@@ -9,8 +9,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
   annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: 50m
-    nginx.org/client-max-body-size: 50m
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ default "50MB" .Values.ingress.annotations.body_size | quote }}
+    nginx.org/client-max-body-size: {{ default "50MB" .Values.ingress.annotations.body_size | quote }}
 spec:
   rules:
   - host: {{ .Values.domain }}

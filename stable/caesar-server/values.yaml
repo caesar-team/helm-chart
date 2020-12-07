@@ -9,9 +9,9 @@ app_name: "Default Caesar Team"
 sender_address: "no-reply@*default_domain"
 
 global:
-#   imageRegistry: myRegistryName
-#   imagePullSecrets:
-#     - myRegistryKeySecretName
+  #   imageRegistry: myRegistryName
+  #   imagePullSecrets:
+  #     - myRegistryKeySecretName
   storageClass: "hostpath"
 
 image:
@@ -33,20 +33,20 @@ common:
   config:
     api_uri: "https://*default_domain"
     app_uri: "https://*default_domain"
-    
+
 postgresql:
   name: "postgresql"
   enabled: true
-  service: 
+  service:
     port: "5432"
-  persistence: 
-    size: "10Gi"  
+  persistence:
+    size: "10Gi"
   postgresqlDatabase: ""
   postgresqlPassword: ""
   postgresqlUsername: ""
 
 redis:
-  enabled: false 
+  enabled: false
   name: "redis"
   cluster:
     enabled: false
@@ -69,14 +69,17 @@ mailer:
   secret:
     mailer_dsn: ""
 
+ingress:
+  annotations:
+    body_size: 50m
 
 server:
-  image: 
+  image:
     tag: "develop"
   persistStorage:
     static:
       size: "5Gi"
-    certificate: 
+    certificate:
       size: "1Gi"
   config:
     allow_front_redirect_pattern: "*"
