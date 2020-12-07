@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+capiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ include "caesar-server.fullname" . }}-caesar-server
@@ -18,35 +18,35 @@ spec:
       paths:
       - path: /api
         backend:
-          serviceName: caesar-server
+          serviceName:  {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /admin
         backend:
-          serviceName: caesar-server
+          serviceName:  {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /bundles
         backend:
-          serviceName: caesar-server
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /connect
         backend:
-          serviceName: caesar-server
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /doc
         backend:
-          serviceName: caesar-server
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /login
         backend:
-          serviceName: caesar-server
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /login_check
         backend:
-          serviceName: caesar-server
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
       - path: /static/images/user/
         backend:
-          serviceName: caesar-server
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
           servicePort: 80
   tls:
   - hosts:
