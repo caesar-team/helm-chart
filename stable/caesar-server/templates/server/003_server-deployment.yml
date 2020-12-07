@@ -1,13 +1,13 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{include "caesar-server.fullname" . }}-app
+  name: {{ include "caesar-server.fullname" . }}-app
   namespace: {{ .Release.Namespace | quote }}
   labels:
     app.kubernetes.io/name: {{include "caesar-server.fullname" . }}-app
-    helm.sh/chart: {{include "caesar-server.chart" . }}
+    helm.sh/chart: {{ include "caesar-server.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name}}
-    app.kubernetes.io/managed-by: {{ .Release.Service}}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
     keel.sh/policy: all
 spec:
   replicas: 1
@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: {{include "caesar-server.fullname" . }}-app
-          image: "caesarteam/caesar-server:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.registry}}/{{ .Values.image.repository}}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ default "Always" .Values.image.pullPolicy | quote }}
           envFrom:
             - configMapRef:
@@ -62,7 +62,7 @@ spec:
               name: {{ include "caesar-server.fullname" . }}-static-files
       initContainers:
         - name: copy-public
-          image: "caesarteam/caesar-server:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.registry}}/{{ .Values.image.repository}}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ default "Always" .Values.image.pullPolicy | quote }}
           command: ["/bin/cp", "-r", "public/.", "public_site/"]
           volumeMounts:
