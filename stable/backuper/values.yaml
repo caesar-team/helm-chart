@@ -16,7 +16,7 @@ global:
 
 image:
   registry: docker.io
-  repository: caesarteam/aws-database-backup
+  repository: caesarteam/backuper
   tag: latest
   pullPolicy: ""
   # pullPolicy: IfNotPresent | Always

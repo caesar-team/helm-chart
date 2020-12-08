@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name}}
     app.kubernetes.io/managed-by: {{ .Release.Service}}
 data:
-  AWS_ACCESS_KEY_ID: {{ required "A valid .Values.aws.aws_access_key_id entry required!" .Values.secret.aws.aws_access_key_id | b64enc | quote }}
+  AWS_ACCESS_KEY_ID: {{ required "A valid .Values.aws.aws_access_key_id entry required!" .Values.aws.aws_access_key_id | b64enc | quote }}
   AWS_BUCKET_BACKUP_PATH: {{ required "A valid .Values.aws.aws_bucket_backup_path entry required!" .Values.aws.aws_bucket_backup_path | quote }}
   AWS_BUCKET_NAME: {{ required "A valid .Values.aws.aws_bucket_name entry required!" .Values.aws.aws_bucket_name | quote }}
   AWS_DEFAULT_REGION: {{ default "us-east-1" .Values.aws.aws_default_region | quote }}
