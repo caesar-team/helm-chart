@@ -1,2 +1,8 @@
 .idea
 .DS_Store
+values.yml
+result/*
+values-*.yml
+stable/*/charts/*
+stable/**/tests/*
+stable/**/*.tgz

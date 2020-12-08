@@ -1,0 +1,30 @@
+apiVersion: v1
+entries:
+  caesar-web-client:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-08T22:25:52.7231516+03:00"
+    description: Caesar is the open-source solution for safe work with sensitive data
+      (passwords, passports, docs etc )
+    digest: 695ad0a45cd88dac452cea15d15c630f9c0d5d704ced364cab3e5020bf7e3a89
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-web-client
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - js
+    - client
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar-web-client
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - caesar-web-client-2.tgz
+    version: "2"
+generated: "2020-12-08T22:25:52.7226656+03:00"

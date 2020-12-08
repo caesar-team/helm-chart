@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "caesar-web-client.fullname" . }}-config
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{include "caesar-web-client.fullname" . }}
+    helm.sh/chart: {{include "caesar-web-client.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name}}
+    app.kubernetes.io/managed-by: {{ .Release.Service}}
+data:
+  API_BASE_PATH: {{ default "api" .Values.app.config.api_base_path | quote }}
+  APP_TYPE: {{ default "general" .Values.app.config.app_type | quote }}
+  API_URI: {{ required "A valid .Values.app.config.api_uri entry required!" .Values.app.config.api_uri | quote }}
+  APP_URI: {{ required "A valid .Values.app.config.app_uri entry required!" .Values.app.config.app_uri | quote }}
+  AUTH_ENDPOINT: {{ default "connect/google" .Values.app.config.auth_endpoint | quote }}
+  AUTHORIZATION_ENABLE: {{ default "true" .Values.app.config.authorization_enable | quote }}
+  IS_EXTENSION: {{ default "false" .Values.app.config.is_extension | quote }}
+  LENGTH_KEY: {{ default "2048" .Values.app.config.length_key | quote }}
+  MAX_SIZE_RANDOM_BUFFER: {{ default "60000" .Values.app.config.max_size_random_buffer | quote }}
+  NODE_ENV: {{ default "production" .Values.app.config.node_env | quote }}
+  MAX_UPLOADING_FILE_SIZE: {{ default "5MB" .Values.app.config.max_uploading_file_size | quote }}
+  TOTAL_MAX_UPLOADING_FILES_SIZES: {{ default "20MB" .Values.app.config.total_max_uploading_files_sizes | quote }}

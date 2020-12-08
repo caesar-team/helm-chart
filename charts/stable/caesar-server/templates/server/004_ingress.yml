@@ -1,0 +1,53 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ include "caesar-server.fullname" . }}-ingress
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar-server.fullname" . }}
+    helm.sh/chart: {{ include "caesar-server.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: {{ default "50MB" .Values.ingress.annotations.body_size | quote }}
+    nginx.org/client-max-body-size: {{ default "50MB" .Values.ingress.annotations.body_size | quote }}
+spec:
+  rules:
+  - host: {{ .Values.domain }}
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName:  {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /admin
+        backend:
+          serviceName:  {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /bundles
+        backend:
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /connect
+        backend:
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /doc
+        backend:
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /login
+        backend:
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /login_check
+        backend:
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+      - path: /static/images/user/
+        backend:
+          serviceName: {{ include "caesar-server.fullname" . }}-headless
+          servicePort: 80
+  tls:
+  - hosts:
+    - {{ .Values.domain }}

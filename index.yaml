@@ -1,0 +1,127 @@
+apiVersion: v1
+entries:
+  backuper:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-08T22:40:04.143358+03:00"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.bitnami.com/bitnami
+      version: 4.1.1
+    description: The backuper is a container image based on Alpine Linux
+    digest: 1225d8f41540f7964cc6dc376c1accd37b13c6858f33a9a08098b30fc5f6f635
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/backuper
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - db
+    - backup
+    - script
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: backuper
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - backuper/backuper-2.0.tgz
+    version: "2.0"
+  caesar:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-08T22:40:04.1435939+03:00"
+    description: Caesar is the open-source solution for safe work with sensitive data
+      (passwords, passports, docs etc )
+    digest: fc5aeee0403269224538b4c86af1c89271d790077c22cc4c6f4e6952188a8f22
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-web-client
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - js
+    - client
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - caesar/caesar-2.0.tgz
+    version: "2.0"
+  caesar-server:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-08T22:40:04.1535613+03:00"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.1
+    - name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.2.0
+    description: Caesar is the open-source solution for safe work with sensitive data
+      (passwords, passports, docs etc )
+    digest: ac87c951e18ebe813cd1aedc12897e8189df72b93ae22dcc204a2042c85903dc
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-server
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - php
+    - symfony
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar-server
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - caesar-server/caesar-server-2.0.tgz
+    version: "2.0"
+  caesar-web-client:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-08T22:40:04.1540836+03:00"
+    description: Caesar is the open-source solution for safe work with sensitive data
+      (passwords, passports, docs etc )
+    digest: 8cea5b63d2d12257d5b166a1e6c92f4b2994942d834a08a892ab05b5c4f6f348
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-web-client
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - js
+    - client
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar-web-client
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - caesar-web-client/caesar-web-client-2.0.tgz
+    version: "2.0"
+generated: "2020-12-08T22:40:04.1376852+03:00"

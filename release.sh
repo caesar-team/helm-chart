@@ -1,22 +1,18 @@
 #!/bin/sh
-SEMVER_REGEX='^([0-9]+\.){0,2}(\*|[0-9]+)$'
+set -e
+WORKING_DIRECTORY="$PWD"
 
-PROJECT=$1
-VERSION=$2
-
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )/${PROJECT}"
-ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-echo "WORKING PROJECT is ${DIR}"
-if [ ! -d "$DIR" ]; then
-    echo ERROR: Project directory is NULL. Please recheck the variables 1>&2
-    exit 1 # terminate and indicate error
-fi
-
-if [[ $VERSION =~ $SEMVER_REGEX ]]; then
- echo "INFO: Version $VERSION"
- helm package $DIR  --version=$VERSION -d $DIR
-else
-  helm package $DIR -d $DIR
-fi
-
-helm repo index $DIR
+[ -z "$GITHUB_PAGES_BRANCH" ] && GITHUB_PAGES_BRANCH=gh-pages
+[ -z "$HELM_CHARTS_SOURCE" ] && HELM_CHARTS_SOURCE="$WORKING_DIRECTORY/stable"
+echo "HELM_CHARTS_SOURCE=$HELM_CHARTS_SOURCE"
+echo '>> Building charts...'
+find "$HELM_CHARTS_SOURCE" -mindepth 1 -maxdepth 1 -type d | while read chart; do
+  echo ">>> helm lint $chart"
+  helm lint "$chart"
+  chart_name="`basename "$chart"`"
+  echo ">>> helm package -u -d $chart_name $chart"
+  mkdir -p "$chart_name"
+  helm package -d "$chart_name" "$chart"
+done
+echo '>>> helm repo index'
+helm repo index .

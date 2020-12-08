@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  {{ include "caesar-web-client.fullname" . }}-headless
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar-web-client.fullname" . }}
+    helm.sh/chart: {{ include "caesar-web-client.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  selector:
+    app.kubernetes.io/name:  {{include "caesar-web-client.fullname" . }}-app
+  type:  NodePort
+  ports:
+    - name:  http
+      port:  3000
+      targetPort:  3000

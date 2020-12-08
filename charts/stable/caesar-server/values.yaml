@@ -1,0 +1,101 @@
+# Default values for caesar.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+namespace: ""
+domain: &default_domain default.caesar.team
+app_name: "Default Caesar Team"
+sender_address: "no-reply@*default_domain"
+
+global:
+  #   imageRegistry: myRegistryName
+  #   imagePullSecrets:
+  #     - myRegistryKeySecretName
+  storageClass: "hostpath"
+
+image:
+  registry: docker.io
+  repository: caesarteam/caesar-server
+  tag: master
+  pullPolicy: IfNotPresent
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+  ## Set to true if you would like to see extra information on logs
+  ##
+  debug: false
+
+common:
+  config:
+    api_uri: "https://*default_domain"
+    app_uri: "https://*default_domain"
+
+postgresql:
+  name: "postgresql"
+  enabled: true
+  service:
+    port: "5432"
+  persistence:
+    size: "10Gi"
+  postgresqlDatabase: ""
+  postgresqlPassword: ""
+  postgresqlUsername: ""
+
+redis:
+  enabled: false
+  name: "redis"
+  cluster:
+    enabled: false
+  redisPort: "6379"
+  password: ""
+
+rabbitmq:
+  enabled: true
+  name: "amqp"
+  resourceName: "messages"
+  service:
+    port: "5672"
+  auth:
+    username: ""
+    password: ""
+    erlangCookie: ""
+
+mailer:
+  enable: true
+  secret:
+    mailer_dsn: ""
+
+ingress:
+  annotations:
+    body_size: 50m
+
+server:
+  image:
+    tag: "develop"
+  persistStorage:
+    static:
+      size: "5Gi"
+    certificate:
+      size: "1Gi"
+  config:
+    allow_front_redirect_pattern: "*"
+    cors_allow_origin: "*"
+    domain_admin_email: ""
+    jwt_token_ttl: "86400"
+    backup_code_hash_length: "6"
+    oauth_allowed_domains: "*default_domain,4xxi.com"
+    rabbitmq_max_count: "5"
+    rabbitmq_idle_timeout: "100"
+  secret:
+    app_secret: ""
+    backup_code_salt: ""
+    google_id: ""
+    google_secret: ""
+    invitation_salt: ""
+    jwt_passphrase: ""
+    mailer_dsn: ""
+    json_rpc_secret: ""

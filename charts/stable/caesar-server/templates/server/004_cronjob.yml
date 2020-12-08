@@ -1,0 +1,64 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{include "caesar-server.fullname" . }}-deffered-send-cron
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{include "caesar-server.fullname" . }}-deffered-send-cron
+    helm.sh/chart: {{ include "caesar-server.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name}}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    keel.sh/policy: all
+spec:
+  schedule: '*/30 * * * *'
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: clear-message-history
+            image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
+            command: ["/usr/local/bin/php", "bin/console"]
+            args: ["app:mailer:deferred:send", "-e", "prod"]
+            envFrom:
+            - configMapRef:
+                name: {{ include "caesar-server.fullname" . }}-config
+            - secretRef:
+                name: {{ include "caesar-server.fullname" . }}-secret
+          restartPolicy: OnFailure
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{include "caesar-server.fullname" . }}-messenger-consumer-cron
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{ include "caesar-server.fullname" . }}-messenger-consumer-cron
+    helm.sh/chart: {{ include "caesar-server.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name}}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    keel.sh/policy: all
+spec:
+  schedule: "*/2 * * * *"
+  concurrencyPolicy: Replace
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: clear-message-history
+            image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
+            command: ["/usr/local/bin/php", "bin/console"]
+            args: ["messenger:consume", "async", "-e", "prod", "--limit", "$(RABBITMQ_MAX_COUNT)"]
+            envFrom:
+            - configMapRef:
+                name: {{ include "caesar-server.fullname" . }}-config
+            - secretRef:
+                name: {{ include "caesar-server.fullname" . }}-secret 
+          restartPolicy: OnFailure
+          terminationGracePeriodSeconds: 30

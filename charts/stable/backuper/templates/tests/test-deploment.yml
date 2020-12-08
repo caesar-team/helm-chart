@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backuper.fullname" . }}-cronjob-test
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    app.kubernetes.io/name: {{include "backuper.fullname" . }}
+    helm.sh/chart: {{include "backuper.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name}}
+    app.kubernetes.io/managed-by: {{ .Release.Service}}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name:  {{include "backuper.fullname" . }}-app
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        keel.sh/policy: all
+        app.kubernetes.io/name:  {{include "backuper.fullname" . }}-app
+    spec:
+      containers:
+        - name: {{include "backuper.fullname" . }}-cronjob-test
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
+          command: ["/bin/sh"]
+          stdin: true
+          tty: true
+          envFrom:
+            - secretRef:
+                name: {{ include "backuper.fullname" . }}-secret
+                optional: false
+            - configMapRef:
+                name: {{ include "backuper.fullname" . }}-config
+                optional: false
+
+
