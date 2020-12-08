@@ -3,3 +3,4 @@
 values.yml
 stable/caesar-server/charts/*
 result/*
+values-*.yml
