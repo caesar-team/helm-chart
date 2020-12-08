@@ -1,0 +1,63 @@
+# Default values for caesar.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+nameOverride: ""
+fullnameOverride: ""
+namespace: ""
+domain: &default_domain default.caesar.team
+app_name: "Default Caesar Team"
+sender_address: "no-reply@*default_domain"
+
+global:
+  #   imageRegistry: myRegistryName
+  #   imagePullSecrets:
+  #     - myRegistryKeySecretName
+  storageClass: "hostpath"
+
+image:
+  registry: docker.io
+  repository: caesarteam/aws-database-backup
+  tag: latest
+  pullPolicy: ""
+  # pullPolicy: IfNotPresent | Always
+  ## Optionally specify an array of imagePullSecrets.
+  ## Secrets must be manually created in the namespace.
+  ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/
+  ##
+  # pullSecrets:
+  #   - myRegistryKeySecretName
+  ## Set to true if you would like to see extra information on logs
+  ##
+  debug: false
+
+enable: true
+
+aws:
+  aws_access_key_id: ""
+  aws_secret_access_key: ""
+  aws_bucket_backup_path: "/backups"
+  aws_bucket_name: "backuper"
+  aws_default_region: "us-east-1"
+
+config:
+  encrypt: "true"
+  slack_channel: "#backup"
+  slack_enabled: "false"
+  slack_webhook_url: ""
+secret:
+  encrypt_pass: ""
+
+postgresql:
+  enable: false
+  name: "postgresql"
+  service:
+    port: "5432"
+  postgresqlDatabase: ""
+  postgresqlPassword: ""
+  postgresqlUsername: ""
+
+minio:
+  enable: false
+  accessKey.password: ""
+  secretKey.password: ""
+  defaultBuckets: "backuper"
