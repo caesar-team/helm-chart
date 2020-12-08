@@ -13,8 +13,8 @@ if [ ! -d "$DIR" ]; then
 fi
 
 if [[ $VERSION =~ $SEMVER_REGEX ]]; then
- echo "INFO: Version $VERSION"
- helm package $DIR  --version=$VERSION -d $DIR
+  echo "INFO: Version $VERSION"
+  helm package $DIR  --version=$VERSION -d $DIR
 else
   helm package $DIR -d $DIR
 fi

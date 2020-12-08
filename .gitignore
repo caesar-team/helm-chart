@@ -5,3 +5,4 @@ result/*
 values-*.yml
 stable/*/charts/*
 stable/**/tests/*
+stable/**/*.tgz
