@@ -4,3 +4,4 @@ values.yml
 result/*
 values-*.yml
 stable/*/charts/*
+stable/**/tests/*

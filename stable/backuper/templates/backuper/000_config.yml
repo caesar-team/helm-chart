@@ -9,12 +9,13 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name}}
     app.kubernetes.io/managed-by: {{ .Release.Service}}
 data:
-  AWS_ACCESS_KEY_ID: {{ required "A valid .Values.aws.aws_access_key_id entry required!" .Values.aws.aws_access_key_id | b64enc | quote }}
-  AWS_BUCKET_BACKUP_PATH: {{ required "A valid .Values.aws.aws_bucket_backup_path entry required!" .Values.aws.aws_bucket_backup_path | quote }}
-  AWS_BUCKET_NAME: {{ required "A valid .Values.aws.aws_bucket_name entry required!" .Values.aws.aws_bucket_name | quote }}
-  AWS_DEFAULT_REGION: {{ default "us-east-1" .Values.aws.aws_default_region | quote }}
-  DB_HOST: {{ (print .Release.Name "-postgresql-headless") | quote }}
-  DB_PORT: {{  required "A valid .Values.postgresql.postgresqlPassword entry required!" .Values.postgresql.service.port | quote }}
+  AWS_ACCESS_KEY_ID: {{ required "A valid .Values.aws.access_key_id entry required!" .Values.aws.access_key_id | quote }}
+  AWS_BUCKET_BACKUP_PATH: {{ required "A valid .Values.aws.bucket_backup_path entry required!" .Values.aws.bucket_backup_path | quote }}
+  AWS_BUCKET_NAME: {{ required "A valid .Values.aws.bucket_name entry required!" .Values.aws.bucket_name | quote }}
+  AWS_DEFAULT_REGION: {{ default "us-east-1" .Values.aws.default_region | quote }}
+  AWS_ENDPOINT: {{ default "s3.amazonaws.com" .Values.aws.endpoint | quote }}
+  DB_HOST: {{  required "A valid .Values.postgresql.service.name entry required!" .Values.postgresql.service.name | quote }}
+  DB_PORT: {{  required "A valid .Values.postgresql.service.port entry required!" .Values.postgresql.service.port | quote }}
   TARGET_DATABASE_NAMES: {{  required "A valid .Values.postgresql.postgresqlDatabase entry required!" .Values.postgresql.postgresqlDatabase | quote }}
   DB_USER: {{  required "A valid .Values.postgresql.postgresqlUsername entry required!" .Values.postgresql.postgresqlUsername  | quote }}
   ENCRYPT: {{ default "true"  .Values.config.encrypt | quote }}

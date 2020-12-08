@@ -33,11 +33,12 @@ image:
 enable: true
 
 aws:
-  aws_access_key_id: ""
-  aws_secret_access_key: ""
-  aws_bucket_backup_path: "/backups"
-  aws_bucket_name: "backuper"
-  aws_default_region: "us-east-1"
+  access_key_id: ""
+  secret_access_key: ""
+  bucket_backup_path: "/backups"
+  bucket_name: "backuper"
+  default_region: "us-east-1"
+  endpoint: "s3.amazonaws.com"
 
 config:
   encrypt: "true"
@@ -52,6 +53,7 @@ postgresql:
   name: "postgresql"
   service:
     port: "5432"
+    name: ""
   postgresqlDatabase: ""
   postgresqlPassword: ""
   postgresqlUsername: ""
