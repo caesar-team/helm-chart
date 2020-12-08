@@ -17,6 +17,12 @@ sources:
   - https://github.com/caesar-team/helm-charts
   - https://caesar.team
 
+configureRepositories:
+  enable: true
+  repositories:
+    - name: https://charts.bitnami.com/bitnami
+      url: https://charts.bitnami.com/bitnami
+
 dependencies:
   - condition: postgresql.enabled
     name: postgresql
