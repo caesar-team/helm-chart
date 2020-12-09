@@ -58,6 +58,31 @@ entries:
     urls:
     - https://github.com/caesar-team/helm-charts/releases/download/caesar-2.0/caesar-2.0.tgz
     version: "2.0"
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-09T15:59:23.14472263Z"
+    description: Caesar is the open-source solution for safe work with sensitive data (passwords, passports, docs etc )
+    digest: dea8b4472d4fb90fa77f48ff7da7a6a5788432ad10c2094927cd44b82b8b51d4
+    home: https://github.com/caesar-team/helm-charts/tree/master/charts/stable/caesar
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - js
+    - client
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - https://github.com/caesar-team/helm-charts/releases/download/caesar-0.1/caesar-0.1.tgz
+    version: "0.1"
   caesar-server:
   - apiVersion: v2
     appVersion: "2.0"
