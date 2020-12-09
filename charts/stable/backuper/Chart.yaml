@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "2.0"
-description: "The backuper is a container image based on Alpine Linux"
-home: https://github.com/caesar-team/helm-charts/tree/master/stable/backuper
+description: "The backuper is a database backup tools with ability to ecnrypt backups"
+home: https://github.com/caesar-team/helm-charts/tree/master/charts/stable/backuper
 icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
 name: backuper
 version: "2.0"
