@@ -9,6 +9,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
+      - name: Check for gh-pages branch
+        run: |
+          git ls-remote --exit-code --heads origin gh-pages
+
       - name: Checkout
         uses: actions/checkout@v2
         with:
