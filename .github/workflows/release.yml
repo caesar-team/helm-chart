@@ -9,10 +9,6 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for gh-pages branch
-        run: |
-          git ls-remote --exit-code --heads origin gh-pages
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -22,6 +18,10 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Check for gh-pages branch
+        run: |
+          git ls-remote --exit-code --heads origin gh-pages
 
       - name: Install Helm
         uses: azure/setup-helm@v1
