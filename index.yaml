@@ -1,0 +1,124 @@
+apiVersion: v1
+entries:
+  backuper:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-09T15:30:23.568119556Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.bitnami.com/bitnami
+      version: 4.1.1
+    description: The backuper is a container image based on Alpine Linux
+    digest: 8eb70b40f80350864b9875a9a83fb59693d7aa10b384469fe51833f24b323136
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/backuper
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - db
+    - backup
+    - script
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: backuper
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - https://github.com/caesar-team/helm-charts/releases/download/backuper-2.0/backuper-2.0.tgz
+    version: "2.0"
+  caesar:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-09T15:30:23.674732303Z"
+    description: Caesar is the open-source solution for safe work with sensitive data (passwords, passports, docs etc )
+    digest: 9193daf696833f3b37a5d95c046eeae7cffc036c574b39b6236abb2d81424d86
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-web-client
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - js
+    - client
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - https://github.com/caesar-team/helm-charts/releases/download/caesar-2.0/caesar-2.0.tgz
+    version: "2.0"
+  caesar-server:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-09T15:30:23.793922614Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.1.1
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.1.1
+    - name: rabbitmq
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.2.0
+    description: Caesar is the open-source solution for safe work with sensitive data (passwords, passports, docs etc )
+    digest: 919fe7d05ca716585a0e2852cb48acb9b526e45dd9ee281acb92e3fce04d660e
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-server
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - php
+    - symfony
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar-server
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - https://github.com/caesar-team/helm-charts/releases/download/caesar-server-2.0/caesar-server-2.0.tgz
+    version: "2.0"
+  caesar-web-client:
+  - apiVersion: v2
+    appVersion: "2.0"
+    created: "2020-12-09T15:30:23.889812106Z"
+    description: Caesar is the open-source solution for safe work with sensitive data (passwords, passports, docs etc )
+    digest: df9b7aff9c24504051109a8e81c080e2cd6b78729b5560d43c1302457315d7e1
+    home: https://github.com/caesar-team/helm-charts/tree/master/stable/caesar-web-client
+    icon: https://avatars0.githubusercontent.com/u/29732245?s=400&u=ad209da860bf9b9dd270dc30c76d525af6b468ca&v=4
+    keywords:
+    - application
+    - password
+    - manager
+    - team
+    - js
+    - client
+    maintainers:
+    - email: ave@caesar.team
+      name: Caesar
+    name: caesar-web-client
+    sources:
+    - https://github.com/caesar-team/helm-charts
+    - https://caesar.team
+    type: application
+    urls:
+    - https://github.com/caesar-team/helm-charts/releases/download/caesar-web-client-2.0/caesar-web-client-2.0.tgz
+    version: "2.0"
+generated: "2020-12-09T15:30:23.428453039Z"
