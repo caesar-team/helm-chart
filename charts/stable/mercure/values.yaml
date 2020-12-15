@@ -38,7 +38,7 @@ replicaCount: 1
 
 image:
   repository: dunglas/mercure
-  tag: v0.10.4
+  tag: v0.11
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
