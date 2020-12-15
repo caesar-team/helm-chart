@@ -146,4 +146,25 @@ entries:
     urls:
     - https://github.com/caesar-team/helm-charts/releases/download/caesar-web-client-2.0/caesar-web-client-2.0.tgz
     version: "2.0"
+  mercure:
+  - apiVersion: v1
+    appVersion: 0.10.0
+    created: "2020-12-15T12:30:38.622745053Z"
+    deprecated: true
+    description: The Mercure hub allows to push data updates using the Mercure protocol to web browsers and other HTTP clients in a convenient, fast, reliable and battery-efficient way
+    digest: e23731c7175b2fbfb23a84bd7185bad08c095105c5d3a78692d544f118e2c561
+    home: https://mercure.rocks
+    icon: https://mercure.rocks/static/logo.svg
+    keywords:
+    - mercure
+    - hub
+    - push
+    - streaming-api
+    - async-api
+    name: mercure
+    sources:
+    - https://github.com/dunglas/mercure
+    urls:
+    - https://github.com/caesar-team/helm-charts/releases/download/mercure-4.0.3/mercure-4.0.3.tgz
+    version: 4.0.3
 generated: "2020-12-09T15:30:23.428453039Z"
