@@ -8,3 +8,4 @@ stable/**/tests/*
 stable/**/*.tgz
 .secrets
 helps
+test.sh
